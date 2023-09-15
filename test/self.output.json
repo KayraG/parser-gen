@@ -1,0 +1,184 @@
+[
+  {
+    "name": "alpha",
+    "value": { "type": 2, "value": ["a", "z"] },
+    "postprocessor": null
+  },
+  {
+    "name": "decimal",
+    "value": { "type": 2, "value": ["0", "9"] },
+    "postprocessor": null
+  },
+  {
+    "name": "ident",
+    "value": {
+      "type": 3,
+      "value": [
+        { "type": 0, "value": "alpha" },
+        {
+          "type": 5,
+          "value": [
+            "zero_or_more",
+            {
+              "type": 4,
+              "value": [
+                { "type": 0, "value": "alpha" },
+                { "type": 0, "value": "decimal" },
+                { "type": 1, "value": "_" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "postprocessor": "ident"
+  },
+  {
+    "name": "str",
+    "value": {
+      "type": 3,
+      "value": [
+        { "type": 1, "value": "\"" },
+        { "type": 5, "value": ["any_until", { "type": 1, "value": "\"" }] }
+      ]
+    },
+    "postprocessor": "string"
+  },
+  {
+    "name": "range",
+    "value": {
+      "type": 3,
+      "value": [
+        { "type": 0, "value": "str" },
+        { "type": 1, "value": "-" },
+        { "type": 0, "value": "str" }
+      ]
+    },
+    "postprocessor": "range"
+  },
+  {
+    "name": "grouped",
+    "value": {
+      "type": 3,
+      "value": [
+        { "type": 1, "value": "(" },
+        { "type": 0, "value": "match" },
+        { "type": 1, "value": ")" }
+      ]
+    },
+    "postprocessor": "group"
+  },
+  {
+    "name": "option",
+    "value": {
+      "type": 5,
+      "value": [
+        "one_or_more",
+        {
+          "type": 3,
+          "value": [
+            { "type": 1, "value": "|" },
+            { "type": 5, "value": "ws" },
+            { "type": 0, "value": "match" },
+            { "type": 5, "value": "ws" }
+          ]
+        }
+      ]
+    },
+    "postprocessor": "option"
+  },
+  {
+    "name": "macro",
+    "value": {
+      "type": 3,
+      "value": [
+        { "type": 1, "value": "*" },
+        { "type": 0, "value": "ident" },
+        { "type": 5, "value": ["optional", { "type": 0, "value": "grouped" }] }
+      ]
+    },
+    "postprocessor": "macro"
+  },
+  {
+    "name": "match",
+    "value": {
+      "type": 3,
+      "value": [
+        {
+          "type": 4,
+          "value": [
+            { "type": 0, "value": "ident" },
+            { "type": 0, "value": "str" },
+            { "type": 0, "value": "range" },
+            { "type": 0, "value": "grouped" },
+            { "type": 0, "value": "option" },
+            { "type": 0, "value": "macro" }
+          ]
+        },
+        {
+          "type": 5,
+          "value": [
+            "optional",
+            {
+              "type": 3,
+              "value": [
+                { "type": 5, "value": "ws" },
+                { "type": 1, "value": "," },
+                { "type": 5, "value": "ws" },
+                { "type": 0, "value": "match" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "postprocessor": "seq"
+  },
+  {
+    "name": "pp",
+    "value": {
+      "type": 3,
+      "value": [
+        { "type": 1, "value": "{" },
+        { "type": 0, "value": "ident" },
+        { "type": 1, "value": "}" }
+      ]
+    },
+    "postprocessor": "pp"
+  },
+  {
+    "name": "stmt",
+    "value": {
+      "type": 3,
+      "value": [
+        { "type": 0, "value": "ident" },
+        { "type": 1, "value": ":" },
+        { "type": 5, "value": "ws" },
+        { "type": 0, "value": "match" },
+        {
+          "type": 5,
+          "value": [
+            "optional",
+            {
+              "type": 3,
+              "value": [
+                { "type": 5, "value": "ws" },
+                { "type": 0, "value": "pp" }
+              ]
+            }
+          ]
+        },
+        { "type": 5, "value": "ws" }
+      ]
+    },
+    "postprocessor": "rule"
+  },
+  {
+    "name": "file",
+    "value": {
+      "type": 5,
+      "value": ["zero_or_more", { "type": 0, "value": "stmt" }]
+    },
+    "postprocessor": null
+  }
+]

@@ -1,0 +1,22 @@
+decimal: "0"-"9"
+op: |"+" |"-" |"*" |"/"
+num: *one_or_more(decimal)
+expr: num, op, expr
+
+// self parser
+
+alpha: "a"-"z"
+decimal: "0"-"9"
+ident: alpha, *zero_or_more(|alpha |decimal |"_") {ident}
+str: "\"", *any_until("\"") {string}
+
+range: str, "-", str {range}
+grouped: "(", match, ")" {group}
+option: *one_or_more("|", *ws, match, *ws) {option}
+macro: "*", ident, *optional(grouped) {macro}
+match_: |ident |str |range |grouped |option |macro
+match: match_, *zero_or_more(",", match_) {seq}
+pp: "{", ident, "}" {pp}
+
+stmt: ident, ":", *ws, match, *optional(*ws, pp), *ws {rule}
+file: *zero_or_more(stmt)

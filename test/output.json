@@ -1,0 +1,15 @@
+[
+  {
+    "name": "i",
+    "value": {
+      "type": "seq",
+      "item": { "type": "ident", "value": "a" },
+      "next": {
+        "type": "macro",
+        "name": { "type": "ident", "value": "z" },
+        "arg": null
+      }
+    },
+    "postprocessor": null
+  }
+]
