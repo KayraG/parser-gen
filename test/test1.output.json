@@ -109,7 +109,13 @@
         { "type": 0, "value": "range" },
         { "type": 0, "value": "grouped" },
         { "type": 0, "value": "option" },
-        { "type": 0, "value": "macro" }
+        {
+          "type": 3,
+          "value": [
+            { "type": 0, "value": "macro" },
+            { "type": 5, "value": "ws" }
+          ]
+        }
       ]
     },
     "postprocessor": null
@@ -127,7 +133,6 @@
             {
               "type": 3,
               "value": [
-                { "type": 5, "value": "ws" },
                 { "type": 1, "value": "," },
                 { "type": 5, "value": "ws" },
                 { "type": 0, "value": "match_" }

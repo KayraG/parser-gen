@@ -1,1 +1,4 @@
-i: a, *z(|a |d |"_") {i}
+alpha: "a"-"z"
+decimal: "0" 
+underscore: "_a" 
+ident: alpha, *zero_or_more("_") {ident}

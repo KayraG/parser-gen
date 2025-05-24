@@ -1,0 +1,6 @@
+alpha: "a"-"z"
+decimal: "0"-"9"
+ident: alpha, *zero_or_more(|alpha |decimal) {ident}
+number: *one_or_more(decimal) {number}
+expr: |ident |number, *ws
+exprs: *zero_or_more(expr)

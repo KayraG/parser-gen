@@ -10,7 +10,7 @@ function readFile(path) {
 }
 
 const Engine = require("./engine"),
-  grammar = JSON.parse(readFile("./test/self.output.json"));
+  grammar = JSON.parse(readFile("./test/test1.output.json"));
 
 const engine = new Engine(grammar, "file");
 
@@ -49,6 +49,9 @@ engine.loadFuncs({
       postprocessor: list[3] || null,
     };
   },
+  number(list) {
+    return { type: "number", value: list.join("") };
+  }
 });
 
 let ast = engine.execute(readFile("./test/test.gr"))[2];

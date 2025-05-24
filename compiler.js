@@ -98,7 +98,7 @@ if (file) {
   fs.readFile(file, (err, data) => {
     if (!err) {
       let result = match(test, data.toString());
-      fs.writeFileSync("./test/self.output.json", JSON.stringify(result[2]));
+      fs.writeFileSync("./test/test1.output.json", JSON.stringify(result[2]));
     }
   });
 }

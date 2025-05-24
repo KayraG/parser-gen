@@ -1,0 +1,32 @@
+[
+  {
+    "name": "alpha",
+    "value": { "type": "range", "start": "a", "end": "z" },
+    "postprocessor": null
+  },
+  {
+    "name": "decimal",
+    "value": { "type": "string", "value": "0" },
+    "postprocessor": null
+  },
+  {
+    "name": "nderscore",
+    "value": { "type": "string", "value": "_a" },
+    "postprocessor": null
+  },
+  {
+    "name": "ent",
+    "value": {
+      "type": "seq",
+      "item": { "type": "ident", "value": "alpha" },
+      "next": [
+        {
+          "type": "macro",
+          "name": { "type": "ident", "value": "zero_or_more" },
+          "arg": null
+        }
+      ]
+    },
+    "postprocessor": null
+  }
+]

@@ -7,7 +7,8 @@ range: str, "-", str {range}
 grouped: "(", match, ")" {group}
 option: *one_or_more("|", *ws, match, *ws) {option}
 macro: "*", ident, *optional(grouped) {macro}
-match: (|ident |str |range |grouped |option |macro), *optional(*ws, ",", *ws, match) {seq}
+match_: |ident |str |range |grouped |option |macro, *ws
+match: match_, *optional(",", *ws, match_) {seq}
 pp: "{", ident, "}" {pp}
 
 stmt: ident, ":", *ws, match, *optional(*ws, pp), *ws {rule}

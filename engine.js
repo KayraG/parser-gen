@@ -1,6 +1,6 @@
 function macroOptional(rule, str) {
   let m = this.match(rule);
-  console.log(m);
+  //console.log(m);
   if (!m[0]) return [true, 0];
   this.index -= m[1];
   return m;
@@ -41,23 +41,29 @@ function macroAnyUntil(rule, str) {
     del = "",
     skip = false;
   const l = str.length;
+  console.log("Starting at " + this.index + " " + str[0]);
   while (i < l) {
     if (str[i] == "\\") {
       skip = true;
       i++;
     }
     let m = this.match(rule);
+    console.log("Hallo mate " + this.index + " :: " + i);
+
     if (m[0] && !skip) {
       found = true;
       del = m[2];
-      i += m[1];
+      i += m[1] || 0;
       break;
     }
     skip = false;
     res = res.concat(str[i++]);
     this.index++;
   }
+  if(!found) this.index--;
+
   this.index -= i;
+  console.log("Bay :: " + str[i]);
   return [found, i, res, del];
 }
 
@@ -120,6 +126,7 @@ class ParserEngine {
     let rstr = "",
       c = 0;
     for (let l = pat.length; c < l; c++) {
+      console.log("Expected " + pat[c] + ", Found: " + str[c] + " \n");
       let x = pat[c] == str[c];
       if (!x) return [false];
       rstr.push(str[c]);
@@ -141,7 +148,7 @@ class ParserEngine {
       if (!m[0]) {
         return [false];
       }
-      console.log(ret, m.slice(2));
+      //console.log(ret, m.slice(2));
       ret.push(...m.slice(2));
     }
     let d = this.index - p;
