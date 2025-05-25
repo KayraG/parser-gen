@@ -1,0 +1,4 @@
+identifier: alpha, *zeroOrMore(| alpha | digit | "_")
+stringLiteral: "'", *until("'") {joinString}
+number: *oneOrMore(digit) {parseInt}
+expression: | identifier | stringLiteral | number
